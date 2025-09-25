@@ -1,0 +1,13 @@
+h1 {
+    color: blue;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: red;
+}
+
+#completeInfo {
+    color: rgb(255, 0, 191);
+}
+
