@@ -3,12 +3,13 @@ const addTodoBtn = document.querySelector("#addTodoBtn");
 const todoList = document.querySelector("#todoList");
 const infoTextElement = document.querySelector("small");
 const completedElement = document.querySelector("#completedElement");
-const completeInfo = document.querySelector("#completeInfo");
+
 
 const allTheTodos = [];
 
 let todoText = "";
 let completed = 0;
+completedElement.textContent = "0 completed";
 
 addTodoBtn.addEventListener("click", addTodo);
 
@@ -19,19 +20,25 @@ function addTodo() {
     todoText = inputTodo.value;
     infoTextElement.textContent = "";
     if (todoText.length == 0) {
-        infoTextElement.textContent = "You must write something!";
+        infoTextElement.textContent = "Input must not be empty";
+        
+        infoTextElement.style.animation = "none";
+        infoTextElement.offsetHeight;
+        infoTextElement.style.animation = null;
+        
         return;
     }
-    else {
-        completeInfo.textContent = ("Click on the list to complete task!");
-    }
+    
+  
 
-   
+
 
     allTheTodos.push(todoText);
 
     const item = document.createElement("li");
     todoList.appendChild(item);
+
+
 
     const itemText = document.createElement('span');
     itemText.innerText = todoText;
@@ -43,25 +50,47 @@ function addTodo() {
             if (itemText.classList.contains("completed")) {
                 itemText.setAttribute('class', "");
                 completed--;
-                completedElement.textContent = "You have " + completed + " tasks that are done"
+                completedElement.textContent = completed + " completed"
             }
 
 
             else {
                 itemText.setAttribute("class", "completed");
                 completed++;
-                completedElement.textContent = "You have " + completed + " tasks that are done"
+                completedElement.textContent =  completed + " completed"
             }
-        }
-    )
+        })
 
 
 
 
     item.appendChild(itemText);
 
+
+
+    //trashcan 
+    const trashcan = document.createElement('span');
+    trashcan.innerHTML = "🗑️";
+    trashcan.classList.add("trashcan");
+    
+    trashcan.addEventListener("click", function(){
+        item.remove();
+    })
+    
+    
+    
+    item.appendChild(trashcan);
+
+
+
     inputTodo.value = "";
-   
+
 
 
 }
+
+
+/* const completeInfo = document.querySelector("#completeInfo");  
+else {
+        completeInfo.textContent = ("Click on the list to complete task!");
+    } */
